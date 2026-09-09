@@ -1961,6 +1961,7 @@ html[data-preset="mountains"][data-theme="dark"]{--bg:#0b1220;--bg-grad:radial-g
 .qa-ctx{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 2px}
 .qa-ctx .btn{font-size:12.5px}
 /* Плаваюча кнопка ⚡ (мобільна) */
+#qa-fab[hidden]{display:none!important}
 #qa-fab{position:fixed;right:20px;bottom:20px;z-index:60;width:50px;height:50px;border-radius:16px;border:none;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;cursor:pointer;box-shadow:0 10px 26px -8px var(--a-glow);display:flex;align-items:center;justify-content:center;transition:all .18s var(--ease)}
 #qa-fab:hover{transform:translateY(-2px);filter:brightness(1.07)}
 #qa-fab:active{transform:scale(.94)}
@@ -2106,7 +2107,7 @@ html[data-preset="mountains"][data-theme="dark"]{--bg:#0b1220;--bg-grad:radial-g
 <!-- MODALS & TOASTS -->
 <div id="modal-root"></div>
 <div id="toasts" aria-live="polite"></div>
-<button id="qa-fab" aria-label="Швидкі дії" title="Швидкі дії"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5L13 2z"/></svg></button>
+<button id="qa-fab" hidden aria-label="Швидкі дії" title="Швидкі дії"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5L13 2z"/></svg></button>
 
 <script>
 'use strict';
@@ -4333,6 +4334,7 @@ document.addEventListener('visibilitychange', () => {
 function lock(reason) {
   if (!unlocked) return;
   unlocked = false;
+  $('#qa-fab').hidden = true;
   clearInterval(tickTimer);
   closeDrawer(); closeAllMenus();
   $('#modal-root').innerHTML = ''; // нічого не має залишатись над екраном входу
@@ -4343,6 +4345,7 @@ function lock(reason) {
 
 function unlock() {
   unlocked = true; lastActivity = Date.now();
+  $('#qa-fab').hidden = false;
   $('#auth').hidden = true;
   $('#app').hidden = false;
   updateAvatar();
@@ -22652,5 +22655,5 @@ document.addEventListener('click', e => {
 })();
 </script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a386bb69699dddf9',t:'MTc4ODk2MjU2MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a386f99ffb46bbdc',t:'MTc4ODk2NTEwOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
