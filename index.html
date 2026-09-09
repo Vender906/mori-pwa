@@ -4381,9 +4381,9 @@ function showOnboarding() {
       <div class="field"><label for="ob-name">Ваше імʼя <span style="color:var(--text-3);font-weight:500">(необовʼязково)</span></label>
         <input class="input" id="ob-name" type="text" maxlength="40" placeholder="Наприклад, Олена" autocomplete="name"></div>
       <div class="field"><label for="ob-pw">Пароль (мін. 4 символи)</label>
-        <input class="input" id="ob-pw" type="password" placeholder="Придумайте пароль" autocomplete="new-password">${strengthHTML('ob')}</div>
+        <div class="v-field"><input class="input" id="ob-pw" type="password" placeholder="Придумайте пароль" autocomplete="new-password"><button class="v-eye" data-eye="ob-pw" type="button" aria-label="Показати пароль">👁</button></div>${strengthHTML('ob')}</div>
       <div class="field"><label for="ob-pw2">Повторіть пароль</label>
-        <input class="input" id="ob-pw2" type="password" placeholder="Ще раз" autocomplete="new-password"></div>
+        <div class="v-field"><input class="input" id="ob-pw2" type="password" placeholder="Ще раз" autocomplete="new-password"><button class="v-eye" data-eye="ob-pw2" type="button" aria-label="Показати пароль">👁</button></div></div>
       <div class="auth-error" id="ob-err"></div>
       <button class="btn btn-primary btn-block" id="ob-go">Створити Mori</button>
       <div class="auth-foot">🔒 Пароль зберігається лише у вигляді хешу (PBKDF2). Відновити його неможливо.</div>
@@ -4418,7 +4418,7 @@ function showLogin(notice) {
       <div class="auth-title">З поверненням${esc(name)} 👋</div>
       <div class="auth-sub">${notice ? esc(notice) + '. ' : ''}Уведіть пароль, щоб відкрити ваш Mori.</div>
       <div class="field"><label for="li-pw">Пароль</label>
-        <input class="input" id="li-pw" type="password" placeholder="Ваш пароль" autocomplete="current-password"></div>
+        <div class="v-field"><input class="input" id="li-pw" type="password" placeholder="Ваш пароль" autocomplete="current-password"><button class="v-eye" data-eye="li-pw" type="button" aria-label="Показати пароль">👁</button></div></div>
       <div class="auth-error" id="li-err"></div>
       <button class="btn btn-primary btn-block" id="li-go">Увійти</button>
       <div class="auth-links"><button id="li-forgot">Забули пароль? Скинути застосунок</button></div>
@@ -7187,9 +7187,9 @@ function changePasswordModal() {
   const m = openModal({
     title: 'Змінити пароль',
     body: `
-      <div class="field"><label>Поточний пароль</label><input class="input" type="password" id="cp-old" autocomplete="current-password"></div>
-      <div class="field"><label>Новий пароль (мін. 4 символи)</label><input class="input" type="password" id="cp-new" autocomplete="new-password">${strengthHTML('cp')}</div>
-      <div class="field"><label>Повторіть новий пароль</label><input class="input" type="password" id="cp-new2" autocomplete="new-password"></div>
+      <div class="field"><label>Поточний пароль</label><div class="v-field"><input class="input" type="password" id="cp-old" autocomplete="current-password"><button class="v-eye" data-eye="cp-old" type="button" aria-label="Показати пароль">👁</button></div></div>
+      <div class="field"><label>Новий пароль (мін. 4 символи)</label><div class="v-field"><input class="input" type="password" id="cp-new" autocomplete="new-password"><button class="v-eye" data-eye="cp-new" type="button" aria-label="Показати пароль">👁</button></div>${strengthHTML('cp')}</div>
+      <div class="field"><label>Повторіть новий пароль</label><div class="v-field"><input class="input" type="password" id="cp-new2" autocomplete="new-password"><button class="v-eye" data-eye="cp-new2" type="button" aria-label="Показати пароль">👁</button></div></div>
       <div class="auth-error" id="cp-err"></div>`,
     foot: `<button class="btn btn-ghost m-cancel">Скасувати</button><button class="btn btn-primary" id="cp-go">Зберегти</button>`,
   });
@@ -22573,15 +22573,18 @@ function setupPWA() {
   try {
     /* абсолютні URL: blob-manifest інакше розв'язує відносні шляхи проти blob: і ламає install */
     const base = location.origin + location.pathname.replace(/[^/]*$/, '');
+    /* на ПК — іконки з заокругленим фоном, на смартфонах — прозорі (не чіпаємо) */
+    const isDesktop = !/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) && window.matchMedia && matchMedia('(pointer: fine)').matches;
+    const px = isDesktop ? '-pc' : '';
     const manifest = {
       name: 'Mori', short_name: 'Mori',
       description: 'Персональний локальний цифровий простір',
       start_url: base, scope: base, display: 'standalone',
       background_color: '#0d0e15', theme_color: '#7c5cff',
       icons: [
-        { src: base + 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-        { src: base + 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-        { src: base + 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        { src: base + 'icon-192' + px + '.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: base + 'icon-512' + px + '.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        ...(!isDesktop ? [{ src: base + 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }] : []),
       ],
     };
     const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
@@ -22609,6 +22612,15 @@ function installApp() {
   }
 }
 document.addEventListener('click', e => { if (e.target.closest('#btn-install')) installApp(); });
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-eye]');
+  if (!b) return;
+  const i = document.getElementById(b.dataset.eye);
+  if (!i) return;
+  const show = i.type === 'password';
+  i.type = show ? 'text' : 'password';
+  b.textContent = show ? '🙈' : '👁';
+});
 
 /* ---------------- Запуск ---------------- */
 (async function boot() {

@@ -3,9 +3,9 @@
    отримує НОВУ версію, коли онлайн; офлайн — падає в кеш.
    Асети (іконки) — cache-first.
    Якщо змінив іконки/асети — підніми CACHE_VERSION. */
-const CACHE_VERSION = 'mori-v1';
+const CACHE_VERSION = 'mori-v2';
 const CACHE = 'mori-' + CACHE_VERSION;
-const CORE = ['./', './index.html', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
+const CORE = ['./', './index.html', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-192-pc.png', './icon-512-pc.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
