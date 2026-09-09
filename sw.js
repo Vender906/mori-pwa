@@ -5,7 +5,7 @@
    Якщо змінив іконки/асети — підніми CACHE_VERSION. */
 const CACHE_VERSION = 'mori-v2';
 const CACHE = 'mori-' + CACHE_VERSION;
-const CORE = ['./', './index.html', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-192-pc.png', './icon-512-pc.png'];
+const CORE = ['./', './index.html', './icon.ico', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-192-pcv2.png', './icon-512-pcv2.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
