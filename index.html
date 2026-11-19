@@ -2047,6 +2047,402 @@ html[data-preset="mountains"][data-theme="dark"]{--bg:#0b1220;--bg-grad:radial-g
   .rel-group-items{gap:6px}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Inter+Tight:wght@500..800&display=swap" rel="stylesheet">
+<style id="mori-refresh">
+/* ============================================================
+   MORI · REFRESH
+   Шар стилів поверх оригінального дизайну. Структура, модулі,
+   емодзі й функції — без змін. Змінюється лише «шкіра»:
+   · один суцільний акцент без градієнтів і світіння
+   · чистіше тло, тонші межі, мʼякші тіні, більше повітря
+   · плаваючий скляний сайдбар (десктоп)
+   · Inter + Inter Tight для заголовків
+   ============================================================ */
+
+:root{
+  --font: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --display: "Inter Tight", "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --topbar-h: 66px;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- Акцент: суцільний, без градієнтів і світіння ---------- */
+html[data-accent]{ --a2: var(--a1) !important; --a-glow: transparent !important; }
+html{ --bg-grad: none !important; }
+
+/* ---------- Нейтральніші, чистіші токени ---------- */
+html[data-theme="light"]{
+  --bg:#f3f4f7;
+  --surface:#ffffff;
+  --surface-2:#f5f6f8;
+  --surface-3:#eceef2;
+  --text:#111318;
+  --text-2:#5a606d;
+  --text-3:#9ba0ab;
+  --border:rgba(17,19,24,.07);
+  --border-strong:rgba(17,19,24,.13);
+  --shadow-sm:0 1px 2px rgba(17,19,24,.04);
+  --shadow:0 1px 2px rgba(17,19,24,.04), 0 12px 30px -18px rgba(17,19,24,.22);
+  --shadow-lg:0 2px 6px rgba(17,19,24,.04), 0 28px 64px -22px rgba(17,19,24,.32);
+  --glass:rgba(255,255,255,.62); --glass-edge:rgba(255,255,255,.85); --glass-hi:rgba(255,255,255,.95);
+}
+html[data-theme="dark"]{
+  --bg:#0b0c10;
+  --surface:#15161b;
+  --surface-2:#1b1d23;
+  --surface-3:#23252d;
+  --text:#f1f2f5;
+  --text-2:#a1a7b4;
+  --text-3:#646a77;
+  --border:rgba(255,255,255,.07);
+  --border-strong:rgba(255,255,255,.13);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --shadow:0 0 0 1px rgba(255,255,255,.02), 0 16px 36px -20px rgba(0,0,0,.75);
+  --shadow-lg:0 0 0 1px rgba(255,255,255,.05), 0 30px 70px -24px rgba(0,0,0,.85);
+  --glass:rgba(26,28,35,.58); --glass-edge:rgba(255,255,255,.07); --glass-hi:rgba(255,255,255,.05);
+}
+
+/* Мʼяке «живе» тло з акцентом — щоб скло мало що заломлювати */
+body{
+  background-image:
+    radial-gradient(900px 600px at -5% -10%, color-mix(in srgb, var(--a1) 10%, transparent), transparent 70%),
+    radial-gradient(800px 600px at 105% 110%, color-mix(in srgb, var(--a1) 7%, transparent), transparent 70%) !important;
+  font-size:14.5px;
+  letter-spacing:-.006em;
+  font-feature-settings:"cv11","ss01";
+}
+
+/* ---------- Типографіка ---------- */
+.hero-greet,.page-head h2,.soon-hero h2,.auth-title,.stat-val,.w-title,.set-card h3,.sec-title,.tb-titles h1,.sb-brand b{
+  font-family:var(--display);
+}
+.hero-greet{font-size:38px;font-weight:700;letter-spacing:-.04em;line-height:1.08}
+.hero-date{font-size:14.5px;color:var(--text-2);margin-top:6px;font-weight:500}
+.page-head{margin-bottom:26px}
+.page-head h2{font-size:30px;font-weight:700;letter-spacing:-.035em}
+.page-head p{font-size:14.5px;margin-top:5px}
+.sec-title{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.tb-titles h1{font-size:17px;font-weight:700;letter-spacing:-.025em}
+
+/* ---------- Плаваючий скляний сайдбар (десктоп) ---------- */
+@media (min-width:961px){
+  .app{padding:12px 0 12px 12px}
+  .sidebar{
+    height:calc(100dvh - 24px);
+    border-radius:24px;
+    border:1px solid var(--glass-edge);
+    background:var(--glass);
+    backdrop-filter:blur(30px) saturate(170%);
+    -webkit-backdrop-filter:blur(30px) saturate(170%);
+    box-shadow:var(--shadow), inset 0 1px 0 var(--glass-hi);
+  }
+}
+@media (max-width:960px){
+  .sidebar{background:var(--surface);border-right:0;border-radius:0 24px 24px 0}
+}
+
+.sb-head{padding:18px 16px 12px}
+.sb-brand b{font-size:17px;font-weight:700;letter-spacing:-.03em}
+.sb-stage{background:transparent;border:1px solid var(--border);color:var(--text-2);border-radius:10px;font-weight:600}
+.sb-stage .dotp{background:var(--a1)}
+.sb-nav{padding:2px 12px 16px}
+.sb-sec{margin:18px 10px 6px;font-size:10.5px;font-weight:650;letter-spacing:.09em;color:var(--text-3)}
+.sb-sec i{width:6px;height:6px;border-radius:50%;opacity:.85}
+.sb-item{padding:6px 10px;margin:1px 0;border-radius:12px;font-size:14px;font-weight:500;color:var(--text-2)}
+.sb-item:hover{background:color-mix(in srgb, var(--text) 5%, transparent);color:var(--text)}
+.sb-item.active{
+  background:var(--surface);color:var(--text);font-weight:600;
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 6px 16px -8px rgba(0,0,0,.18);
+}
+.sb-item.active::before{display:none}
+.sb-tile,.sb-tile.cat-accent{
+  width:28px;height:28px;border-radius:9px;font-size:15px;
+  background:transparent !important;box-shadow:none !important;
+  transition:background .2s var(--ease), transform .2s var(--ease);
+}
+.sb-item.active .sb-tile{background:var(--a-soft) !important}
+.sb-foot{border-top:1px solid var(--border);padding:10px 12px 12px}
+.sb-user{border-radius:14px}
+.sb-user:hover{background:color-mix(in srgb, var(--text) 5%, transparent)}
+.sb-avatar,.avatar-btn{background:var(--a1);box-shadow:none}
+
+/* ---------- Верхня панель ---------- */
+.topbar{border-bottom:0;padding:0 28px 0 22px}
+.topbar .icon-btn{border-radius:12px}
+.topbar .icon-btn:hover{background:var(--surface)}
+.tb-add{border-radius:12px;box-shadow:none}
+
+/* ---------- Контент ---------- */
+.content{padding:22px 36px 70px}
+
+/* ---------- Картки ---------- */
+.card{border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card-hover:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:var(--border)}
+
+/* ---------- Дашборд ---------- */
+.hero{margin-bottom:26px}
+.hero-side .btn{border-radius:12px;font-weight:600;padding:9px 16px}
+.hero-acc{background:var(--surface);color:var(--text);box-shadow:var(--shadow);border:1px solid var(--border)}
+.hero-acc:hover{background:var(--surface);filter:none}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);color:var(--text-2)}
+
+.stats{gap:16px;margin-bottom:20px}
+.stat{padding:20px 20px 18px;gap:12px}
+.stat-icon{width:42px;height:42px;border-radius:13px;background:var(--surface-2) !important;box-shadow:none;font-size:19px}
+.stat-val{font-size:26px;font-weight:700;letter-spacing:-.04em}
+.stat-label{font-size:12.5px;font-weight:500;color:var(--text-3)}
+
+.widgets{gap:16px}
+.widget{padding:20px;gap:14px}
+.w-tile{width:34px;height:34px;border-radius:11px;background:var(--surface-2) !important;font-size:16px}
+.w-title{font-size:16px;font-weight:700;letter-spacing:-.02em}
+.w-count{background:var(--surface-2);font-weight:600}
+.w-link{font-weight:600}
+.w-empty{border:0;background:var(--surface-2);border-radius:14px}
+
+.row-item,.media-row,.d-entry,.goal,.bday{border-radius:12px}
+.chk{border-radius:50%;border-width:1.8px}
+.row-title,.m-title{font-weight:500}
+.cover{border-radius:7px;box-shadow:0 6px 14px -8px rgba(0,0,0,.45)}
+.bar{height:6px;background:var(--surface-3)}
+
+.chip{font-weight:600;background:var(--surface-2)}
+
+/* ---------- Кнопки й поля ---------- */
+.btn{font-weight:600;border-radius:12px;border-width:1px}
+.btn-primary{background:var(--a1);box-shadow:none}
+.btn-primary:hover{filter:brightness(1.08);box-shadow:0 8px 20px -10px var(--a1)}
+.btn-ghost{background:var(--surface-2);border-color:transparent}
+.btn-ghost:hover{background:var(--surface-3);border-color:transparent}
+.input,select.input,textarea.input{border-width:1px;border-color:transparent;background:var(--surface-2);border-radius:12px}
+.input:focus{border-color:var(--a1);box-shadow:0 0 0 4px var(--a-soft);background:var(--surface)}
+.icon-btn{border-radius:12px}
+
+.seg{border:0;background:var(--surface-2);border-radius:12px}
+.seg button{border-radius:9px;font-weight:600}
+.seg button.on{box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 10px -6px rgba(0,0,0,.18)}
+.swatch{border-radius:50%}
+.switch .track{border:0}
+
+/* ---------- Меню / модалки ---------- */
+.menu{border-radius:16px;border:1px solid var(--border);box-shadow:var(--shadow-lg);padding:6px}
+.menu-item{border-radius:10px;font-weight:500}
+.menu-label{font-weight:650;letter-spacing:.06em}
+
+/* ---------- Екрани входу ---------- */
+.auth-orb{opacity:.12 !important;filter:blur(90px)}
+.auth-card{border-radius:26px;box-shadow:var(--shadow-lg)}
+.auth-title{font-weight:700;letter-spacing:-.03em}
+
+/* ---------- Скролбари ---------- */
+*::-webkit-scrollbar{width:8px;height:8px}
+</style>
+<style id="mori-plus">
+/* ============================================================
+   MORI · REFRESH+  (поверх mori-refresh.css)
+   Глибша переробка інтерфейсу без зміни коду застосунку:
+   · сайдбар-акордеон: розділи згортаються
+   · кольорові значки в меню
+   · нижня панель вкладок на телефоні
+   · без «Етап N» та інших службових елементів
+   · демо-записи, якщо сховище порожнє (лише в цій копії)
+   ============================================================ */
+
+.sb-stage{display:none !important}
+.sb-head{padding-bottom:16px}
+
+/* ---------- Сайдбар: акордеон ---------- */
+.sb-sec{cursor:pointer;border-radius:10px;padding:6px 10px;margin:10px 0 2px;transition:background .2s var(--ease),color .2s var(--ease);user-select:none}
+.sb-sec:hover{background:color-mix(in srgb, var(--text) 5%, transparent);color:var(--text-2)}
+.sb-sec .sec-count{margin-left:auto;font-size:10.5px;font-weight:600;letter-spacing:0;color:var(--text-3);opacity:0;transition:opacity .2s}
+.sb-sec.closed .sec-count{opacity:1}
+.sb-sec .sec-chev{width:14px;height:14px;flex:none;color:var(--text-3);transition:transform .3s var(--ease)}
+.sb-sec:not(.closed) .sec-count{display:none}
+.sb-sec.closed .sec-chev{transform:rotate(-90deg)}
+.sb-item.sec-hidden{display:none}
+.app.sb-mini .sb-item.sec-hidden{display:flex}
+.sb-item.sec-reveal{animation:secIn .35s var(--ease) both}
+@keyframes secIn{from{opacity:0;transform:translateY(-4px)}}
+
+/* Верхня панель — як у Mori Refresh: прозора, без рамки (стилі в mori-refresh.css) */
+
+/* ---------- Дашборд ---------- */
+@media (min-width:1500px){ .widgets{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.hero-greet{font-size:42px}
+.stat{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+
+/* ---------- Мобільна панель вкладок ---------- */
+#plus-tabbar{display:none}
+@media (max-width:960px){
+  #plus-tabbar{
+    display:flex;align-items:center;gap:4px;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:58;
+    padding:7px;border-radius:26px;background:var(--glass);border:1px solid var(--glass-edge);
+    backdrop-filter:blur(26px) saturate(170%);-webkit-backdrop-filter:blur(26px) saturate(170%);box-shadow:var(--shadow-lg)
+  }
+  #plus-tabbar a,#plus-tabbar button{flex:1;height:52px;border-radius:19px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10.5px;font-weight:600;color:var(--text-2);transition:all .25s var(--ease)}
+  #plus-tabbar svg{width:21px;height:21px}
+  #plus-tabbar .on{background:var(--surface);color:var(--a1);box-shadow:0 2px 10px -4px rgba(0,0,0,.2)}
+  #plus-tabbar .pt-add{flex:none;width:56px;background:var(--a1);color:#fff}
+  .content{padding-bottom:110px !important}
+  #qa-fab{bottom:calc(90px + env(safe-area-inset-bottom)) !important}
+  .topbar{border-bottom:0}
+}
+</style>
+<script id="mori-plus-js">
+/* MORI · REFRESH+ — поведінка поверх оригінального застосунку.
+   Нічого не змінює в даних; лише навігація. */
+(function () {
+  'use strict';
+  var KEY = 'mori.plus.collapsed';
+  var OPEN_BY_DEFAULT = ['ПРОФІЛЬ', 'ОСОБИСТЕ', 'ЗАВДАННЯ'];
+  var collapsed;
+  var firstRun = false;
+  try {
+    var raw = localStorage.getItem(KEY);
+    firstRun = raw === null;
+    collapsed = new Set(raw ? JSON.parse(raw) : []);
+  } catch (e) { collapsed = new Set(); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(Array.from(collapsed))); } catch (e) {} }
+
+  var CHEV = '<svg class="sec-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+
+  /* ---------- Сайдбар-акордеон ---------- */
+  function enhance() {
+    var nav = document.getElementById('sb-nav');
+    if (!nav || nav.dataset.plus) return;
+    nav.dataset.plus = '1';
+    var cur = null, counts = {};
+    Array.prototype.forEach.call(nav.children, function (el) {
+      if (el.classList.contains('sb-sec')) {
+        cur = el.textContent.trim();
+        el.dataset.sec = cur;
+        el.setAttribute('role', 'button');
+        el.tabIndex = 0;
+        counts[cur] = 0;
+        if (firstRun && OPEN_BY_DEFAULT.indexOf(cur) === -1) collapsed.add(cur);
+      } else if (cur && el.classList.contains('sb-item')) {
+        el.dataset.inSec = cur;
+        counts[cur]++;
+      }
+    });
+    nav.querySelectorAll('.sb-sec').forEach(function (s) {
+      s.insertAdjacentHTML('beforeend', '<span class="sec-count">' + counts[s.dataset.sec] + '</span>' + CHEV);
+    });
+    if (firstRun) { firstRun = false; save(); }
+    apply(false);
+  }
+
+  function apply(animate, changed) {
+    var nav = document.getElementById('sb-nav');
+    if (!nav) return;
+    var active = nav.querySelector('.sb-item.active');
+    var activeSec = active && active.dataset.inSec;
+    nav.querySelectorAll('.sb-sec').forEach(function (s) {
+      var closed = collapsed.has(s.dataset.sec) && s.dataset.sec !== activeSec;
+      s.classList.toggle('closed', closed);
+      s.setAttribute('aria-expanded', String(!closed));
+    });
+    nav.querySelectorAll('.sb-item[data-in-sec]').forEach(function (it) {
+      var sec = it.dataset.inSec;
+      var hide = collapsed.has(sec) && sec !== activeSec;
+      it.classList.toggle('sec-hidden', hide);
+      it.classList.remove('sec-reveal');
+      if (animate && !hide && sec === changed) { void it.offsetWidth; it.classList.add('sec-reveal'); }
+    });
+  }
+
+  function toggle(sec) {
+    if (collapsed.has(sec)) collapsed.delete(sec); else collapsed.add(sec);
+    save();
+    apply(true, sec);
+  }
+
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest && e.target.closest('.sb-sec[data-sec]');
+    if (s) { e.preventDefault(); toggle(s.dataset.sec); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('sb-sec')) {
+      e.preventDefault(); toggle(e.target.dataset.sec);
+    }
+  });
+
+  /* ---------- Мобільна панель вкладок ---------- */
+  var I = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
+    today: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+    money: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="14" rx="3.5"/><path d="M2.5 10h19M16 15h2"/></svg>',
+    menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
+  };
+  function buildTabbar() {
+    if (document.getElementById('plus-tabbar')) return;
+    var app = document.getElementById('app');
+    if (!app) return;
+    var bar = document.createElement('nav');
+    bar.id = 'plus-tabbar';
+    bar.setAttribute('aria-label', 'Основна навігація');
+    bar.innerHTML =
+      '<a href="#/home" data-r="home">' + I.home + '<span>Головна</span></a>' +
+      '<a href="#/tasks-today" data-r="tasks-today">' + I.today + '<span>Сьогодні</span></a>' +
+      '<button type="button" class="pt-add" aria-label="Швидкий запис">' + I.plus + '</button>' +
+      '<a href="#/finance" data-r="finance">' + I.money + '<span>Фінанси</span></a>' +
+      '<button type="button" class="pt-menu">' + I.menu + '<span>Усе</span></button>';
+    app.appendChild(bar);
+    bar.querySelector('.pt-add').addEventListener('click', function () { var b = document.getElementById('btn-capture'); if (b) b.click(); });
+    bar.querySelector('.pt-menu').addEventListener('click', function () { var b = document.getElementById('btn-nav'); if (b) b.click(); });
+    markTab();
+  }
+  function markTab() {
+    var bar = document.getElementById('plus-tabbar');
+    if (!bar) return;
+    var r = (location.hash.replace(/^#\/?/, '').split(/[/?]/)[0]) || 'home';
+    bar.querySelectorAll('[data-r]').forEach(function (a) { a.classList.toggle('on', a.dataset.r === r); });
+  }
+
+  window.addEventListener('hashchange', function () { setTimeout(function () { apply(false); markTab(); }, 30); });
+
+  /* ---------- Демо-записи, якщо сховище порожнє ----------
+     Використовує вбудований seedDemo() Mori: він нічого не додає,
+     якщо в базі вже є хоч якісь записи. */
+  var seedState = 'idle', seedTries = 0;
+  function autoSeed() {
+    var app = document.getElementById('app');
+    if (!app || app.hidden || seedState !== 'idle') return;
+    if (typeof seedDemo !== 'function') return;
+    seedState = 'running';
+    seedDemo().then(function (seeded) {
+      seedState = 'done';
+      if (!seeded) return;
+      try { if (typeof onRoute === 'function') onRoute(); } catch (e) {}
+      try { if (typeof toast === 'function') toast('Додано демо-записи, щоб було видно, як виглядають картки', 'ok'); } catch (e) {}
+    }).catch(function () {
+      seedState = 'idle';
+      if (++seedTries < 6) setTimeout(autoSeed, 800);
+    });
+  }
+  function watchApp() {
+    var app = document.getElementById('app');
+    if (!app) return setTimeout(watchApp, 200);
+    new MutationObserver(autoSeed).observe(app, { attributes: true, attributeFilter: ['hidden'] });
+    autoSeed();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchApp); else watchApp();
+
+  /* Сайдбар перебудовується застосунком (тема, налаштування) — стежимо */
+  function watch() {
+    var sb = document.getElementById('sidebar');
+    if (!sb) return setTimeout(watch, 200);
+    new MutationObserver(function () { enhance(); }).observe(sb, { childList: true, subtree: true });
+    enhance();
+    buildTabbar();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch); else watch();
+})();
+</script>
 </head>
 <body>
 <noscript><div style="padding:40px;text-align:center;font-family:sans-serif">Mori потребує увімкненого JavaScript.</div></noscript>
